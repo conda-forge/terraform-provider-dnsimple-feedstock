@@ -4,7 +4,7 @@
 
 {% set name = goname.split('/')[-1] %}
 
-{% set x4_plugin = name + '_v' + version + "_x4" + (".exe" if win else "")%}
+{% set x4_plugin = name + '_v' + version + "_x4" %}
 
 {% set sha256 = "21fda933d678224e669bd4e6f907c83e06cd08eb54f1e881e8832529e2557b9b" %}
 {% set sha256_win64 = "11abc3cd6e79d38f47a24cae14650217e0b7df91353cc4e4b2a7528b06f0c985" %}
@@ -21,8 +21,8 @@ source:
 build:
   number: 0
   script:
-    - go build -v -o $GOBIN/{{ x4_plugin }} .  # [unix]
-    - go build -v -o %GOBIN%\{{ x4_plugin }} .  # [win]
+    - go build -v -o {{ target_gobin }}{{ x4_plugin }}{{ target_goexe }} .  # [unix]
+    - go build -v -o %GOBIN%\{{ x4_plugin }}{{ target_goexe }} .  # [win]
 
 requirements:
   build:
@@ -42,7 +42,7 @@ test:
     - terraform init
     # Tests that no plugins were downloaded
     - test -f .terraform/plugins/{{ goos }}_{{ goarch }}/lock.json
-    - test ! -f .terraform/plugins/{{ goos }}_{{ goarch }}/{{ x4_plugin }}
+    - test ! -f .terraform/plugins/{{ goos }}_{{ goarch }}/{{ x4_plugin }}{{ target_goexe }}
 
 about:
   home: https://www.terraform.io
