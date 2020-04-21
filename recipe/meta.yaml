@@ -1,12 +1,10 @@
 {% set provider = "DNSimple" %}
 {% set goname = "github.com/terraform-providers/terraform-provider-"+provider.lower() %}
-{% set version = "0.2.0" %}
+{% set version = "0.3.0" %}
 
 {% set name = goname.split('/')[-1] %}
 
 {% set x4_plugin = name + '_v' + version + "_x4" %}
-
-{% set sha256 = "21fda933d678224e669bd4e6f907c83e06cd08eb54f1e881e8832529e2557b9b" %}
 
 package:
   name: {{ name|lower }}
@@ -14,7 +12,7 @@ package:
 
 source:
   url: https://{{ goname }}/archive/v{{ version }}.tar.gz
-  sha256: {{ sha256 }}
+  sha256: 3f04582aa3d98321298ce3e357514db7c0ac1ccb59bb17847235a70b102134f0
 
 
 build:
